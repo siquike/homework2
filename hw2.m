@@ -1,6 +1,10 @@
 %% 1.1
 
 im = imread('chickenbroth_01.jpg');
+%%
+% figure; imagesc(DoGPyramid(:,:,5))
+%%
+
 sigma0 =1;
 k = sqrt(2);
 levels = [-1 0 1 2 3 4];
@@ -19,6 +23,10 @@ displayPyramid(DoGPyramid);
 
 %% 1.3
 
-PrincipalCurvature = computePrincipalCurvature(DoGPyramid)
+PrincipalCurvature = computePrincipalCurvature(DoGPyramid);
 
 thetac = 0.03;
+
+%% Test
+
+figure;imagesc(PrincipalCurvature(:,:,5))
