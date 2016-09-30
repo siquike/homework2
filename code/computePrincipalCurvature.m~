@@ -23,9 +23,14 @@ for i = nz
     hessians(:,:,3) = Dxy;
     hessians(:,:,4) = Dyy;
     
+    temp = [Dxx(1,1) Dxy(1,1);
+            Dyx(1,1) Dyy(1,1)]
+    
     hessians = permute(hessians,[3 1 2]);
     hessians = reshape(hessians,2,[],1);
     hessians = reshape(hessians,2,2,[]);
+    
+    hessians(:,:,2)
     
     for j= 1:nx*ny
         H = hessians(:,:,j);
@@ -34,6 +39,5 @@ for i = nz
 end
 
 PrincipalCurvature = reshape(PrincipalCurvature,nx,ny,nz);
-
-PrincipalCurvature = (PrincipalCurvature(PrincipalCurvature > thetar);
+% PrincipalCurvature = PrincipalCurvature(PrincipalCurvature > thetar);
  

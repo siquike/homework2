@@ -29,4 +29,4 @@ thetac = 0.03;
 
 %% Test
 
-figure;imagesc(PrincipalCurvature(:,:,5))
+figure;displayPyramid(PrincipalCurvature)
