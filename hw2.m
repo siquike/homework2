@@ -19,3 +19,6 @@ displayPyramid(DoGPyramid);
 
 %% 1.3
 
+PrincipalCurvature = computePrincipalCurvature(DoGPyramid)
+
+thetac = 0.03;
