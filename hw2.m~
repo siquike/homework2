@@ -25,23 +25,10 @@ displayPyramid(DoGPyramid);
 
 PrincipalCurvature = computePrincipalCurvature(DoGPyramid);
 
-% Test = PrincipalCurvature;
-% figure
-% imagesc(Test(:,:,5))
-% hold on
-% displayPyramid(DoGPyramid);
-
-
+TetDoGPyramid.*PrincipalCurvature;
 
 thetac = 0.03;
 
 %% Test
-points = DoGPyramid;
 
-points(abs(PrincipalCurvature) > 12) = nan;
-figure;displayPyramid(points)
-
-%%
-
-locs = getLocalExtrema(DoGPyramid, DoGLevels, PrincipalCurvature,.03, 12)
-displayPyramid(locs)
+figure;displayPyramid(PrincipalCurvature)
