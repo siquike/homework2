@@ -8,6 +8,10 @@ function locs = getLocalExtrema(DoGPyramid, DoGLevels, PrincipalCurvature,th_con
 % th_r - remove any edge-like points that have too large a principal curvature ratio
 % output
 % locs - N x 3 matrix where the DoG pyramid achieves a local extrema in both scale and space, and also satisfies the two thresholds.
+dim = size(DoGPyramid);
+
 DoGPyramid(abs(DoGPyramid) < th_contrast) = nan;
-% DoGPyramid(abs(PrincipalCurvature) > th_r) = nan;
-locs = DoGPyramid;
+DoGPyramid(abs(PrincipalCurvature) > th_r) = nan;
+DoGPyramid = DoGPyramid(:);
+[y,x,z] = ind2sub(dim,find(~isnan(DoGPyramid)));
+locs = [x y z];

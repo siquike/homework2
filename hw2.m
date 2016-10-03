@@ -43,5 +43,7 @@ figure;displayPyramid(points)
 
 %%
 
-locs = getLocalExtrema(DoGPyramid, DoGLevels, PrincipalCurvature,.03, 12)
-displayPyramid(locs)
+locs = getLocalExtrema(DoGPyramid, DoGLevels, PrincipalCurvature,.03, 12);
+
+%%
+figure; hold on; imagesc(im);scatter(locs(:,1),locs(:,2),'.')
