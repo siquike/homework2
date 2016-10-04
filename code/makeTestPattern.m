@@ -6,3 +6,7 @@ function [compareA, compareB] = makeTestPattern(patchWidth, nbits)
 % compareA and compareB - linear indices into the patchWidth x patchWidth image patch and are each nbits x 1 vectors. 
 %
 % Run this routine for the given parameters patchWidth = 9 and n = 256 and save the results in testPattern.mat.
+s = 1:9;
+lind = sub2ind([patchWidth patchWidth],s,s)';
+compareA = randsample(lind,nbits,'true');
+compareB = randsample(lind,nbits,'true');

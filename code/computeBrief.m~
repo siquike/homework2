@@ -13,25 +13,20 @@ function [locs,desc] = computeBrief(im, GaussianPyramid, locsDoG, k, levels, com
 nnum1 = nan(1,256);
 nnum2 = nan(1,3);
 
-desc = nan(size(locsDoG,1),256);
-locs = nan(size(locsDoG,1),3);
-
-for i = 1:size(locsDoG,1)
-    try
-        locx = locsDoG(i,1)-4:locsDoG(i,1)+4;
-        locy = locsDoG(i,2)-4:locsDoG(i,2)+4;
-        locz = locsDoG(i,3);
-        px = GaussianPyramid(locx,locy,locz);
-        px = px(:);
-        py = im(locx,locy);
-        py = py(:);
-        desc(i,:) = (px(compareA) < px(compareB))';
-        locs(i,:) = locsDoG(i,:);
-    catch
-        desc(i,:) = nnum1;
-        locs(i,:) = nnum2;
-    end
-end
+% for i = 1:size(locsDoG,1)
+%     try
+%         locx = locsDoG(i,1)-4:locsDoG(i,1)+4;
+%         locy = locsDoG(i,2)-4:locsDoG(i,2)+4;
+%         locz = locsDoG(i,3);
+%         patch = GaussianPyramid(locx,locy,locz);
+%         patch = patch(:);
+%         desc(i,:) = (patch(compareA) < patch(compareB))';
+%         locs(i,:) = locsDoG(i,:);
+%     catch
+%         desc(i,:) = nnum1;
+%         locs(i,:) = nnum2;
+%     end
+% end
 % 
 % desc = desc(~isnan(desc));
 % locs = locs(~isnan(locs));
@@ -41,22 +36,22 @@ end
 %%
 
 
-% for i = 1:size(locsDoG,1)
-%     locx = locsDoG(i,1)-4:locsDoG(i,1)+4
-%     locy = locsDoG(i,2)-4:locsDoG(i,2)+4
-%     locz = locsDoG(i,3);
-%     if(((sum(locx <= 0)) == 0) && ((sum(locy <= 0)) == 0) && ((sum(locx > size(im,2))) == 0) && ((sum(locy > size(im,1))) == 0))
-%         patch = GaussianPyramid(locx,locy,locz);
-%         patch = patch(:);
-% %         patch(compareA)
-% %         patch(compareB)
-%         desc(i,:) = (patch(compareA) < patch(compareB))';
-%         locs(i,:) = locsDoG(i,:);
-%     else
-%         desc(i,:) = nnum1;
-%         locs(i,:) = nnum2;
-%     end
-% end
-% 
-% desc = desc(~isnan(desc));
-% locs = locs(~isnan(locs));
+for i = 1:size(locsDoG,1)
+    locx = locsDoG(i,1)-4:locsDoG(i,1)+4;
+    locy = locsDoG(i,2)-4:locsDoG(i,2)+4;
+    locz = locsDoG(i,3);
+    if(((sum(locx <= 0)) == 0) || ((sum(locy <= 0)) == 0) || ((sum(locx > size(im))) == 0))
+        patch = GaussianPyramid(locx,locy,locz);
+        patch = patch(:);
+%         patch(compareA)
+%         patch(compareB)
+        desc(i,:) = (patch(compareA) < patch(compareB))';
+        locs(i,:) = locsDoG(i,:);
+    else
+        desc(i,:) = nnum1;
+        locs(i,:) = nnum2;
+    end
+end
+
+desc = desc(~isnan(desc));
+locs = locs(~isnan(locs));
