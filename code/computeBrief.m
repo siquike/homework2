@@ -22,10 +22,7 @@ for i = 1:size(locsDoG,1)
         locy = locsDoG(i,2)-4:locsDoG(i,2)+4;
         locz = locsDoG(i,3);
         px = GaussianPyramid(locx,locy,locz);
-        px = px(:);
-        py = im(locx,locy);
-        py = py(:);
-        desc(i,:) = (px(compareA) < px(compareB))';
+        desc(i,:) = (px(compareA) > px(compareB))';
         locs(i,:) = locsDoG(i,:);
     catch
         desc(i,:) = nnum1;

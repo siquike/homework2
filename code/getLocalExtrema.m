@@ -10,15 +10,27 @@ function locs = getLocalExtrema(DoGPyramid, DoGLevels, PrincipalCurvature,th_con
 % locs - N x 3 matrix where the DoG pyramid achieves a local extrema in both scale and space, and also satisfies the two thresholds.
 
 dim = size(DoGPyramid);
-for i = 2:dim-1
-    [Dx,Dy,Dz] = gradient(DoGPyramid(:,:,i-1:i+1));
-    abs(DoGPyramid) <= th_contrast
+locs = nan(dim(1),dim(2),dim(3));
+
+for k = 2:dim(3)-1
+    for j = 2:dim(2)-1
+        for i = 2:dim(1)-1
+            neighbours = [DoGPyramid(i-1,j-1,k) DoGPyramid(i+1,j+1,k) DoGPyramid(i-1,j,k) DoGPyramid(i,j-1,k)...
+                          DoGPyramid(i-1,j+1,k) DoGPyramid(i+1,j-1,k) DoGPyramid(i,j+1,k) DoGPyramid(i+1,j,k)...
+                          DoGPyramid(i,j,k-1) DoGPyramid(i,j,k+1)];
+            if((sum(DoGPyramid(i,j,k) > neighbours) == 10) || (sum(DoGPyramid(i,j,k) < neighbours) == 10))
+                locs(i,j,k) = DoGPyramid(i,j,k);
+            else
+                locs(i,j,k) = nan;
+            end
+        end
+    end
 end
 
-DoGPyramid(abs(DoGPyramid) <= th_contrast) = nan;
-DoGPyramid(abs(PrincipalCurvature) > th_r) = nan;
-DoGPyramid = DoGPyramid(:);
-[y,x,z] = ind2sub(dim,find(~isnan(DoGPyramid)));
+locs(abs(locs) <= th_contrast) = nan;
+locs(abs(PrincipalCurvature) > th_r) = nan;
+locs = locs(:);
+[y,x,z] = ind2sub(dim,find(~isnan(locs)));
 locs = [x y z];
 
 

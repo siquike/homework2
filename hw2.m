@@ -49,6 +49,7 @@ figure;displayPyramid(DoGlocs)
 
 %% 1.5
 im = imread('model_chickenbroth.jpg');
+% im = imread('chickenbroth_01.jpg');
 
 sigma0 =1;
 k = sqrt(2);
@@ -67,16 +68,45 @@ figure; hold on; imagesc(im);scatter(locsDoG(:,1),locsDoG(:,2),'.')
 %%
 [locs,desc] = computeBrief(im, GaussianPyramid, locsDoG, k, levels, compareA, compareB);
 
-%%
-im1 = imread('model_chickenbroth.jpg');
+%% 2.4
+im1 = rgb2gray(im2double(imread('model_chickenbroth.jpg')));
 [locs1, desc1] = briefLite(im1);
 
-im2 = imread('chickenbroth_01.jpg');
+im2 = rgb2gray(im2double(imread('chickenbroth_01.jpg')));
 [locs2, desc2] = briefLite(im2);
 %%
 
-[matches] = briefMatch(desc1, desc1,10);
+[matches] = briefMatch(desc1, desc2);
 
 %%
 
-plotMatches(im1, im1, matches, locs1, locs1)
+plotMatches(im1, im2, matches, locs1, locs2)
+
+%% 2.5
+
+im1 = rgb2gray(im2double(imread('model_chickenbroth.jpg')));
+[locs1, desc1] = briefLite(im1);
+
+im2 = rgb2gray(im2double(imread('model_chickenbroth.jpg')));
+im2 = imrotate(im2,0);
+[locs2, desc2] = briefLite(im2);
+%%
+
+[matches] = briefMatch(desc1, desc2);
+
+%%
+
+plotMatches(im1, im2, matches, locs1, locs2)
+
+
+%%
+
+mu = [0,0];
+sigma = [9/5,0;0,9/5];
+rng default  % For reproducibility
+r = mvnrnd(mu,sigma,256);
+r(:,1) = round(r(:,1)/norm(r(:,1))*41+41);
+r(:,2) = round(r(:,2)/norm(r(:,2))*41+41);
+
+figure
+plot(r(:,1),r(:,2),'+')
