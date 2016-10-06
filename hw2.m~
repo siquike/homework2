@@ -44,8 +44,7 @@ figure;displayPyramid(points)
 %%
 
 DoGlocs = getLocalExtrema(DoGPyramid, DoGLevels, PrincipalCurvature,.03, 12);
-figure;imagesc(im);hold on
-plot(DoGlocs(:,1),DoGlocs(:,2),'+')
+figure;displayPyramid(DoGlocs)
 
 
 %% 1.5
@@ -77,7 +76,7 @@ im2 = rgb2gray(im2double(imread('chickenbroth_01.jpg')));
 [locs2, desc2] = briefLite(im2);
 %%
 
-[matches] = briefMatch(desc1, desc2,.8);
+[matches] = briefMatch(desc1, desc2);
 
 %%
 
@@ -96,7 +95,7 @@ im2 = imrotate(im2,0);
 [matches] = briefMatch(desc1, desc2);
 
 %%
-figure
+
 plotMatches(im1, im2, matches, locs1, locs2)
 
 
@@ -114,10 +113,12 @@ plot(r(:,1),r(:,2),'+')
 %%
 mu = [0,0];
 sigma = [9/5,0;0,9/5];
-rng shuffle  % For reproducibility
+rng default  % For reproducibility
+r = mvnrnd(mu,sigma,256);
+r(:,1) = round(r(:,1)/norm(r(:,1))*41+41);
+r(:,2) = round(r(:,2)/norm(r(:,2))*41+41);
 
-v1 = sum(rand(9,256) > 0.5)+1
-v2 = sum(rand(9,256) > 0.5)+1
+v = sum(rand(256))
 
 figure
-plot(v1,v2,'+')
+plot(r(:,1),r(:,2),'+')

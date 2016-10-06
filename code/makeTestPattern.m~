@@ -6,35 +6,26 @@ function [compareA, compareB] = makeTestPattern(patchWidth, nbits)
 % compareA and compareB - linear indices into the patchWidth x patchWidth image patch and are each nbits x 1 vectors. 
 %
 % Run this routine for the given parameters patchWidth = 9 and n = 256 and save the results in testPattern.mat.
+rng shuffle
+
 s = 1:9;
 lind = sub2ind([patchWidth patchWidth],s,s)';
-% compareA = randsample(lind,nbits,'true');
-% compareB = randsample(lind,nbits,'true');
-% compareA = randi([1 patchWidth*patchWidth],1,nbits)';
-% compareB = randi([1 patchWidth*patchWidth],1,nbits)';
 
-for i = 1:29
-    indxAi = normrnd(0,9/5,[1 patchWidth]);
-    indxAi = round(indxA/norm(indxA)*4 + 5);
-    indyAi = normrnd(0,9/5,[1 patchWidth]);
-    indyAi = round(indyA/norm(indyA)*4 + 5);
-    indxBi = normrnd(0,9/5,[1 patchWidth]);
-    indxBi = round(indxB/norm(indxB)*4 + 5);
-    indyBi = normrnd(0,9/5,[1 patchWidth]);
-    indyBi = round(indyB/norm(indyB)*4 + 5);
-    
-    indxA = [indxA indxAi];
-    indyA = [indyA indyAi];
-    indxB = [indxB indxBi];
-    indyB = [indyB indyBi];
-end
+vA = sum(rand(80,100000) > 0.5)+1;
+vB = sum(rand(80,100000) > 0.5)+1;
+figure
+plot(vA,vB,'+')
 
-% indxA = repmat(indxA,patchWidth,1);
-% indxA = indxA(:)';
-% indyA = repmat(indyA,1,patchWidth);
-% indxB = repmat(indxB,patchWidth,1);
-% indxB = indxB(:)';
-% indyB = repmat(indyB,1,patchWidth);
+compares = sub2ind([patchWidth*patchWidth patchWidth*patchWidth],vA,vB)';
+[C,ia,ic] = unique(compares);
+[I,J] = ind2sub()
+size(compareA)
+compareA = compareA(1:nbits);
 
-compareA = sub2ind([patchWidth patchWidth],indxA,indyA)';
-compareB = sub2ind([patchWidth patchWidth],indxB,indyB)';
+compareB = sub2ind([patchWidth patchWidth],vB1,vB2)';
+compareB = unique(compareB);
+compareB = compareB(1:nbits);
+
+
+% compareA = sub2ind([patchWidth patchWidth],rA(:,1),rA(:,2))';
+% compareB = sub2ind([patchWidth patchWidth],rB(:,1),rB(:,2))';
