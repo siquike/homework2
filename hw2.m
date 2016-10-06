@@ -121,3 +121,8 @@ v2 = sum(rand(9,256) > 0.5)+1
 
 figure
 plot(v1,v2,'+')
+
+%% homography
+p1 = [1 2 3;1 2 3];
+p2 = [5 2 5;5 6 7];
+H2to1 = computeH(p1,p2)
