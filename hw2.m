@@ -123,6 +123,20 @@ figure
 plot(v1,v2,'+')
 
 %% homography
-p1 = [1 2 3;1 2 3];
-p2 = [5 2 5;5 6 7];
+p1 = [1 2 3 4;1 2 3 4];
+p2 = [5 2 5 6;5 6 7 1];
 H2to1 = computeH(p1,p2)
+
+
+%% Q5
+img1 = im2double(imread('incline_L.png'));
+img2 = im2double(imread('incline_R.png'));
+
+[locs1, desc1] = briefLite(img1);
+[locs2, desc2] = briefLite(img2);
+[matches] = briefMatch(desc1, desc2);
+figure
+plotMatches(img1, img2, matches, locs1, locs2)
+%%
+H2to1 = computeH(locs1,locs2);
+[panoImg] = imageStitching(img1, img2, H2to1)

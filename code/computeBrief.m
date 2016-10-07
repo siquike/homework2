@@ -29,9 +29,12 @@ for i = 1:size(locsDoG,1)
         locs(i,:) = nnum2;
     end
 end
-% 
-% desc = desc(~isnan(desc));
-% locs = locs(~isnan(locs));
+
+desc = desc
+locs = locs;
+
+desc = desc(any(desc,2),:)
+locs = locs(any(locs,2),:);
 % desc = reshape(desc,[],256);
 % locs = reshape(desc,[],3);
 
