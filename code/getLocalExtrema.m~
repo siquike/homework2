@@ -13,35 +13,19 @@ function locs = getLocalExtrema(DoGPyramid, DoGLevels, PrincipalCurvature,th_con
 dim = size(DoGPyramid);
 locs = nan(dim(1),dim(2),dim(3));
 
-for k = 1:dim(3)
+for k = 2:dim(3)-1
     for j = 2:dim(2)-1
         for i = 2:dim(1)-1
-            if(k == 1)
-                neighbours = [DoGPyramid(i-1,j-1,k) DoGPyramid(i+1,j+1,k) DoGPyramid(i-1,j,k) DoGPyramid(i,j-1,k)...
-                              DoGPyramid(i-1,j+1,k) DoGPyramid(i+1,j-1,k) DoGPyramid(i,j+1,k) DoGPyramid(i+1,j,k)...
-                              DoGPyramid(i,j,k+1)];
-                if((sum(DoGPyramid(i,j,k) > neighbours) == 9) || (sum(DoGPyramid(i,j,k) < neighbours) == 9))
-                    locs(i,j,k) = DoGPyramid(i,j,k);
-                else
-                    locs(i,j,k) = nan;
-                end
-            elseif(k == dim(3))
-                neighbours = [DoGPyramid(i-1,j-1,k) DoGPyramid(i+1,j+1,k) DoGPyramid(i-1,j,k) DoGPyramid(i,j-1,k)...
-                              DoGPyramid(i-1,j+1,k) DoGPyramid(i+1,j-1,k) DoGPyramid(i,j+1,k) DoGPyramid(i+1,j,k)...
-                              DoGPyramid(i,j,k-1)];
-                if((sum(DoGPyramid(i,j,k) > neighbours) == 9) || (sum(DoGPyramid(i,j,k) < neighbours) == 9))
-                    locs(i,j,k) = DoGPyramid(i,j,k);
-                else
-                    locs(i,j,k) = nan;
-                end
+            if(k == 1 || k = dim(3))
+                
             else
                 neighbours = [DoGPyramid(i-1,j-1,k) DoGPyramid(i+1,j+1,k) DoGPyramid(i-1,j,k) DoGPyramid(i,j-1,k)...
                               DoGPyramid(i-1,j+1,k) DoGPyramid(i+1,j-1,k) DoGPyramid(i,j+1,k) DoGPyramid(i+1,j,k)...
                               DoGPyramid(i,j,k-1) DoGPyramid(i,j,k+1)];
                 if((sum(DoGPyramid(i,j,k) > neighbours) == 10) || (sum(DoGPyramid(i,j,k) < neighbours) == 10))
-                    locs(i,j,k) = DoGPyramid(i,j,k);
+                locs(i,j,k) = DoGPyramid(i,j,k);
                 else
-                    locs(i,j,k) = nan;
+                locs(i,j,k) = nan;
                 end
             end
         end

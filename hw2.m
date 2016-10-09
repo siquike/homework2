@@ -45,7 +45,7 @@ figure;displayPyramid(points)
 
 DoGlocs = getLocalExtrema(DoGPyramid, DoGLevels, PrincipalCurvature,.03, 12);
 figure;imagesc(im);hold on
-plot(DoGlocs(:,1),DoGlocs(:,2),'+')
+plot(DoGlocs(:,1),DoGlocs(:,2),'r+')
 
 
 %% 1.5
@@ -80,7 +80,7 @@ im2 = rgb2gray(im2double(imread('chickenbroth_01.jpg')));
 [matches] = briefMatch(desc1, desc2,.8);
 
 %%
-
+figure
 plotMatches(im1, im2, matches, locs1, locs2)
 
 %% 2.5
