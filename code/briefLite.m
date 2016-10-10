@@ -15,6 +15,5 @@ th_contrast = 0.03;
 th_r = 12;
 
 [locsDoG, GaussianPyramid] = DoGdetector(im, sigma0, k, levels,th_contrast, th_r);
-
 load('testPattern.mat');
 [locs,desc] = computeBrief(im, GaussianPyramid, locsDoG, k, levels, compareA, compareB);

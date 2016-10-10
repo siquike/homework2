@@ -51,7 +51,7 @@ end
 locs(abs(locs) < th_contrast) = nan;
 locs(abs(PrincipalCurvature) > th_r) = nan;
 locs = locs(:);
-[y,x,z] = ind2sub(dim,find(~isnan(locs)));
+[x,y,z] = ind2sub(dim,find(~isnan(locs)));
 locs = [x y z];
 
 

@@ -6,28 +6,31 @@ function [compareA, compareB] = makeTestPattern(patchWidth, nbits)
 % compareA and compareB - linear indices into the patchWidth x patchWidth image patch and are each nbits x 1 vectors. 
 %
 % Run this routine for the given parameters patchWidth = 9 and n = 256 and save the results in testPattern.mat.
-rng shuffle
+rng default
+% 
+% s = 1:9;
+% lind = sub2ind([patchWidth patchWidth],s,s)';
+% 
+% vA = sum(rand(80,10000) > 0.5)+1;
+% vB = sum(rand(80,10000) > 0.5)+1;
+% figure
+% plot(vA,vB,'+')
+% 
+% compares = sub2ind([81 81],vA,vB)';
+% [~,ia,~] = unique(compares);
+% [I,J] = ind2sub([81 81],ia);
+% I
+% J
+% compareA = vA(I);
+% compareA = compareA(1:nbits);
+% compareB = vB(J);
+% compareB = compareB(1:nbits);
+% 
+% figure
+% plot(compareA,compareB,'+')
 
-s = 1:9;
-lind = sub2ind([patchWidth patchWidth],s,s)';
-
-vA = sum(rand(80,10000) > 0.5)+1;
-vB = sum(rand(80,10000) > 0.5)+1;
-figure
-plot(vA,vB,'+')
-
-compares = sub2ind([81 81],vA,vB)';
-[~,ia,~] = unique(compares);
-[I,J] = ind2sub([81 81],ia);
-I
-J
-compareA = vA(I);
-compareA = compareA(1:nbits);
-compareB = vB(J);
-compareB = compareB(1:nbits);
-
-figure
-plot(compareA,compareB,'+')
+compareA = randi(patchWidth.^2,nbits,1);
+compareB = randi(patchWidth.^2,nbits,1);
 
 
 
