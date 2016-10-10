@@ -15,13 +15,17 @@ nnum2 = nan(1,3);
 
 desc = nan(size(locsDoG,1),256);
 locs = nan(size(locsDoG,1),3);
+sigma = 5;
+
+h = fspecial('gaussian',floor(3*sigma*2)+1,sigma);
+    im = imfilter(im,h);
 
 for i = 1:size(locsDoG,1)
     try
         locx = locsDoG(i,1)-4:locsDoG(i,1)+4;
         locy = locsDoG(i,2)-4:locsDoG(i,2)+4;
         locz = locsDoG(i,3);
-        p = GaussianPyramid(locx,locy,locz);
+        p = im(locx,locy);
         desc(i,:) = (p(compareA) < p(compareB))';
         locs(i,:) = locsDoG(i,:);
     catch
@@ -30,10 +34,10 @@ for i = 1:size(locsDoG,1)
     end
 end
 
-desc = desc
+desc = desc;
 locs = locs;
 
-desc = desc(any(desc,2),:)
+desc = desc(any(desc,2),:);
 locs = locs(any(locs,2),:);
 % desc = reshape(desc,[],256);
 % locs = reshape(desc,[],3);

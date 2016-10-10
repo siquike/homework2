@@ -1,6 +1,6 @@
 %% 1.1
 
-im = imread('model_chickenbroth.jpg');
+im = imread('chickenbroth_01.jpg');
 %%
 % figure; imagesc(DoGPyramid(:,:,5))
 %%

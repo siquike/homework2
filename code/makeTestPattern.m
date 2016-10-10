@@ -30,6 +30,8 @@ figure
 plot(compareA,compareB,'+')
 
 
+
+
 % size(compareA)
 % compareA = compareA(1:nbits);
 % 
