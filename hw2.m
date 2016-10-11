@@ -129,9 +129,19 @@ img2 = im2double(imread('incline_R.png'));
 
 [locs1, desc1] = briefLite(img1);
 [locs2, desc2] = briefLite(img2);
-[matches] = briefMatch(desc1, desc2);
+[matches] = briefMatch(desc1, desc2,.3);
 figure
 plotMatches(img1, img2, matches, locs1, locs2)
 %%
-H2to1 = computeH(locs1,locs2);
-[panoImg] = imageStitching(img1, img2, H2to1)
+match1 = locs1(matches(:,1),1:2);
+match2 = locs2(matches(:,2),1:2);
+% H2to1 = computeH(match1',match2');
+[bestH] = ransacH(matches, locs1, locs2, 20000, 1);
+[panoImg] = imageStitching(img1, img2, bestH);
+
+%%
+
+figure;imagesc(img1);
+%%
+hold on; imagesc(panoImg)
+

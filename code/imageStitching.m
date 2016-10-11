@@ -6,6 +6,7 @@ function [panoImg] = imageStitching(img1, img2, H2to1)
 %
 % output
 % Blends img1 and warped img2 and outputs the panorama image
-warp_im = warpH(img2, H2to1, 1000,1000);
-figure;imagesc(warp_im)
-panoImg = warp_im
+warp_im = warpH(img2, H2to1, [1000 1000],0);
+figure;hold on; imwrite(warp_im);
+% imagesc(img1)
+panoImg = warp_im;
